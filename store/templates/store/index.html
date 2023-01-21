@@ -1,0 +1,106 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% block headermenu %}
+
+{% endblock %}
+
+<style>
+	#slideshow {
+		margin: 50px auto;
+		position: relative;
+		width: 240px;
+		height: 240px;
+		padding: 10px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+	}
+
+	#slideshow>div {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		right: 10px;
+		bottom: 10px;
+	}
+</style>
+{% block container %}
+<div class="row">
+	<div>
+		<div id="slideshow" style="position: relative; left:61%; transform: translate(-50%, 0%);">
+			<div>
+				<img src="/static/images/slides-img/1.png" style="width:100%;height:350px;">
+			</div>
+			<!--มันขนาด h 300 w 900-->
+			<div>
+				<img src="/static/images/slides-img/2.png" style="width:100%;height:350px;">
+			</div>
+			<div>
+				<img src="/static/images/slides-img/3.png" style="width:100%;height:350px;">
+			</div>
+			<div>
+				<img src="/static/images/slides-img/4.png" style="width:100%;height:350px;">
+			</div>
+			<div>
+				<img src="/static/images/slides-img/5.png" style="width:100%;height:350px;">
+			</div>
+			<div>
+				<img src="/static/images/slides-img/6.png" style="width:100%;height:350px;">
+			</div>
+
+		</div>
+		<br>
+
+		</div>
+	</div>
+
+	<div class="col-sm-12">
+		<div class="titleheader">
+			<h3 class="h2header text-center">หนังสือมาใหม่</h3>
+		</div>
+		<div class="regulara sliderzx">
+			{% for item in newbooks %}
+			<div class="book-wrapper text-center">
+				<div class="coverpage">
+					<img src="{{ item.coverpage.url }}" />
+				</div>
+				<a href="{% url 'store:book' id=item.id %}">{{ item.name|text_short }}</a>
+				<a href="{% url 'store:writer' id=item.writer.id %}">{{ item.writer }}</a>
+				<div class="rating">
+					{{ item.totalrating|averagerating:item.totalreview }}
+					<span class="totalrating">{{ item.totalreview|add:-1 }}</span>
+				</div>
+				<p> {{ item.price }} ฿</p>
+				<button class="btn btn-warning" id="addTocart" data-book-id="{{ item.id }}">
+					<i class="fa fa-shopping-cart"> ใส่ในตะกร้า</i>
+				</button>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="col-sm-12">
+		<div class="titleheader">
+			<h3 class="h2header text-center">หนังสือขายดี</h3>
+		</div>
+		<div class="regulara sliderzx">
+			{% for p in newbooks %}
+			<div class="book-wrapper text-center">
+				<div class="coverpage">
+					<img src="{{ p.coverpage.url }}" />
+				</div>
+				<a href="{% url 'store:book' id=p.id %}">{{ p.name|text_short }}</a>
+				<a href="{% url 'store:writer'  id=p.writer.id %}">{{ p.writer }}</a>
+				<div class="rating">
+					{{ p.totalrating|averagerating:p.totalreview }}
+					<span class="totalrating">{{ p.totalreview|add:-1 }}</span>
+				</div>
+				<p> {{ p.price }} ฿</p>
+				<button class="btn btn-warning" id="addTocart" data-book-id="{{ p.id }}">
+					<i class="fa fa-shopping-cart"> ใส่ในตะกร้า</i>
+				</button>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

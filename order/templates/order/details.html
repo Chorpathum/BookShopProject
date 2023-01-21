@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% block container %}
+<div class="row">
+	<div class="col-sm-8">
+		<div class="cart_info">
+			<table class="table table-hover">
+				<thead class="text-center">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col" style="width: 250px">ชื่อหนังสือ</th>
+						<th scope="col">ราคา</th>
+						<th scope="col">จำนวน</th>
+						<th scope="col"> Download</th>
+
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					{% for item in o_item %}
+					<tr>
+						<td class="cart_coverpage"><a href=""><img src="{{ item.book.coverpage.url}}"></a></td>
+						<td><a href="{% url 'store:book' id=item.book.id %}">{{ item.book.name }}</a></td>
+						<td class="cart_quantity">{{ item.book.price }} ฿</td>
+						<td class="cart_quantity">{{ item.quantity }}</td>
+						<td><i class="fa fa-download"></i>
+							
+							<a href="{{ item.book.dbebook.url}}" download>
+
+								<button class="btn">
+									ดาวน์โหลด
+								</button>
+							</a>
+							
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<ul class="list-group">
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<h4>รายการชำระเงิน</h4>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">จำนวนหนังสือ<span>{{o_summary.totalbook }}</span></li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">ราคาสินค้ารวม<span>{{o_summary.payable }} ฿</span></li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">ภาษีมูลค่าเพิ่ม*<span>{{ o_summary.payable|tax }} ฿</span></li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">ยอดเงินที่ต้องชำระทั้งหมด<span>{{ o_summary.payable|payabletotal }} ฿.</span></li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">ข้อมูลรายการสินค้า<span>{{o_summary.created }}</span></li>
+		</ul>
+	</div>
+</div>
+{% endblock %}

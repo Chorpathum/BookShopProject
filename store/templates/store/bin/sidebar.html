@@ -1,0 +1,9 @@
+<ul class="list-group list-group-flush"style="min-height: 1000px;">
+	<li class="list-group-item" >
+		<h5>หมวดหมู่</h5>
+	</li>
+	{% for p in cat %}
+	<li class="list-group-item"><a href="{% url 'store:category' id=p.id %}">{{p.name}}</a></li>
+	{% endfor %}
+
+</ul>

@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <title>Order: #2022{{ order.id }}</title>
+    <style>
+        @page {
+            size: A4 portrait;
+        }
+        
+        @font-face {
+            font-family: "OpenSans";
+            src: url('http://mydomain/fonts/Open-Sans-regular.ttf');
+        }
+    </style>
+
+
+
+    <head> { % load staticfiles % }
+
+        <body>
+            <div id="header_content">
+                <h1>Order: #2022 { { order.id } }
+
+                </h1>
+            </div>
+            <p><strong>Book: </strong> { { order.totalbook } }
+
+                <br /><strong>Name: </strong> { { order.name } }
+
+                <br /><strong>Phone: </strong> { { order.phone } }
+
+                <br /><strong>Email: </strong> { { order.email } }
+
+                <br /><strong>Account No: </strong> { { order.account_no } }
+
+                <br /><strong>Payment Method: </strong> { { order.payment_method } }
+
+                <br /><strong>Shipping address: </strong> { { order.province } } : { { order.zip_code } } , { { order.district } } , { { order.address } }
+
+                <br /></p> { % if order.book % }
+
+            <table id="cssTable" class="cssTdTh">
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody> { % for part in order.book % }
+
+                    <tr>
+                        <td> { { part.book } }
+
+                        </td>
+                        <td> { { part.price } }
+
+                        </td>
+                    </tr> { % endfor % }
+
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td> { { sales_invoice.total_part_price } }
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table> { % endif % }
+
+        </body>
+
+</html>

@@ -1,0 +1,8 @@
+{% load customfunction %}
+<ul class="list-group">
+	<li class="list-group-item d-flex justify-content-between align-items-center"><h4>รายการชำระเงิน</h4></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">จำนวนหนังสือ<span>{{ cart|length }}</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">ราคาสินค้ารวม<span>{{ cart.get_total_price }} ฿</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">ภาษีมูลค่าเพิ่ม*<span>{{ cart.get_total_price|tax }} ฿</span></li>
+	<li class="list-group-item d-flex justify-content-between align-items-center">ยอดเงินที่ต้องชำระทั้งหมด<span>{{ cart.get_total_price|payabletotal}} ฿</span></li>
+</ul>	
